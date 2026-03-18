@@ -105,13 +105,13 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
 
     if (fixed.current && j1.current && j2.current && j3.current && card.current && band.current) {
       if (!dragged) {
-        const swayX = Math.sin(windTime.current * 0.7) * 0.35
-        const swayZ = Math.cos(windTime.current * 0.55) * 0.2
+        const swayX = Math.sin(windTime.current * 0.7) * 0.2
+        const swayZ = Math.cos(windTime.current * 0.55) * 0.12
 
         ;[j2, j3, card].forEach((ref) => ref.current?.wakeUp())
         j2.current.applyImpulse({ x: swayX * delta, y: 0, z: swayZ * delta }, true)
-        j3.current.applyImpulse({ x: swayX * delta * 1.2, y: 0, z: swayZ * delta * 1.2 }, true)
-        card.current.applyTorqueImpulse({ x: 0, y: swayX * delta * 0.03, z: swayZ * delta * 0.06 }, true)
+        j3.current.applyImpulse({ x: swayX * delta * 1.05, y: 0, z: swayZ * delta * 1.05 }, true)
+        card.current.applyTorqueImpulse({ x: 0, y: swayX * delta * 0.018, z: swayZ * delta * 0.035 }, true)
       }
 
       ;[j1, j2].forEach((ref) => {
