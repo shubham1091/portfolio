@@ -52,12 +52,32 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
   const curve = useMemo(() => new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()]), [])
   const [dragged, drag] = useState<THREE.Vector3 | false>(false)
   const [hovered, hover] = useState(false)
+  const [isInteractive, setIsInteractive] = useState(false)
+  const windTime = useRef(0)
 
   useEffect(() => {
     return () => {
       bandTexture.dispose()
     }
   }, [bandTexture])
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(hover: hover) and (pointer: fine)')
+    const updateInteractivity = () => {
+      setIsInteractive(mediaQuery.matches)
+      if (!mediaQuery.matches) {
+        hover(false)
+        drag(false)
+      }
+    }
+
+    updateInteractivity()
+    mediaQuery.addEventListener('change', updateInteractivity)
+
+    return () => {
+      mediaQuery.removeEventListener('change', updateInteractivity)
+    }
+  }, [])
 
   // Joints should be called early but they depend on refs
   useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1])
@@ -66,13 +86,15 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
   useSphericalJoint(j3, card, [[0, 0, 0], [0, 1.45, 0]])
 
   useEffect(() => {
-    if (hovered) {
+    if (isInteractive && hovered) {
       document.body.style.cursor = dragged ? 'grabbing' : 'grab'
       return () => void (document.body.style.cursor = 'auto')
     }
-  }, [hovered, dragged])
+  }, [hovered, dragged, isInteractive])
 
   useFrame((state, delta) => {
+    windTime.current += delta
+
     if (dragged) {
       vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera)
       dir.copy(vec).sub(state.camera.position).normalize()
@@ -82,6 +104,16 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
     }
 
     if (fixed.current && j1.current && j2.current && j3.current && card.current && band.current) {
+      if (!dragged) {
+        const swayX = Math.sin(windTime.current * 0.7) * 0.35
+        const swayZ = Math.cos(windTime.current * 0.55) * 0.2
+
+        ;[j2, j3, card].forEach((ref) => ref.current?.wakeUp())
+        j2.current.applyImpulse({ x: swayX * delta, y: 0, z: swayZ * delta }, true)
+        j3.current.applyImpulse({ x: swayX * delta * 1.2, y: 0, z: swayZ * delta * 1.2 }, true)
+        card.current.applyTorqueImpulse({ x: 0, y: swayX * delta * 0.03, z: swayZ * delta * 0.06 }, true)
+      }
+
       ;[j1, j2].forEach((ref) => {
         if (!ref.current.lerped) ref.current.lerped = new THREE.Vector3().copy(ref.current.translation())
         const clampedDistance = Math.max(0.1, Math.min(1, ref.current.lerped.distanceTo(ref.current.translation())))
@@ -97,7 +129,8 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
 
       ang.copy(card.current.angvel())
       rot.copy(card.current.rotation())
-      card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z }, true)
+      const spinY = dragged ? 0 : 0.55
+      card.current.setAngvel({ x: ang.x, y: spinY - rot.y * 0.25, z: ang.z }, true)
     }
   })
 
@@ -113,17 +146,17 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
           <group
             scale={2.25}
             position={[0, -1.2, -0.05]}
-            onPointerOver={() => hover(true)}
-            onPointerOut={() => hover(false)}
-            onPointerUp={(e: ThreeEvent<PointerEvent>) => {
+            onPointerOver={isInteractive ? () => hover(true) : undefined}
+            onPointerOut={isInteractive ? () => hover(false) : undefined}
+            onPointerUp={isInteractive ? (e: ThreeEvent<PointerEvent>) => {
               const target = e.currentTarget as HTMLElement
               target.releasePointerCapture(e.pointerId)
               drag(false)
-            }}
-            onPointerDown={(e: ThreeEvent<PointerEvent>) => (
+            } : undefined}
+            onPointerDown={isInteractive ? (e: ThreeEvent<PointerEvent>) => (
               (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId),
               drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())))
-            )}>
+            ) : undefined}>
             <mesh geometry={nodes.card.geometry}>
               <meshStandardMaterial map={materials.base.map} roughness={0.5} metalness={0.2} transparent opacity={1} />
             </mesh>
