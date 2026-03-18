@@ -109,20 +109,20 @@ function HoverImageCard({ project }: { project: typeof projects[0] }) {
   };
 
   return (
-    <motion.div 
+    <motion.div
       variants={itemVariants}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => {
-        setIsHovered(false);
-        x.set(0);
-        y.set(0);
-        rotateSpring.set(0);
+        setIsHovered(false)
+        x.set(0)
+        y.set(0)
+        rotateSpring.set(0)
       }}
       onMouseMove={handleMouseMove}
-      className="group relative bg-[#2a2a2a] rounded-2xl overflow-hidden cursor-pointer border border-white/5 h-full flex flex-col"
+      className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-border/60 bg-card"
     >
       {/* Floating Image Reveal Element */}
-      <motion.div 
+      <motion.div
         style={{
           x: xSpring,
           y: ySpring,
@@ -131,72 +131,80 @@ function HoverImageCard({ project }: { project: typeof projects[0] }) {
           translateY: "-50%",
         }}
         initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ 
-          opacity: isHovered ? 1 : 0, 
-          scale: isHovered ? 1 : 0.5 
+        animate={{
+          opacity: isHovered ? 1 : 0,
+          scale: isHovered ? 1 : 0.5,
         }}
         transition={{ duration: 0.3 }}
-        className="absolute top-1/2 left-1/2 w-4/5 aspect-[4/3] pointer-events-none z-30 rounded-xl overflow-hidden shadow-2xl border border-white/10"
+        className="pointer-events-none absolute top-1/2 left-1/2 z-30 aspect-4/3 w-4/5 overflow-hidden rounded-xl border border-white/10 shadow-2xl"
       >
-        <div className="w-full h-full bg-gradient-to-br from-gray-600/80 to-red-600/80 flex items-center justify-center text-white font-bold backdrop-blur-md">
-          {project.image ? <span className="text-2xl opacity-50 text-center px-4">Image<br/>Placeholder</span> : "View Project"}
+        <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-secondary/80 to-primary/70 font-bold text-primary-foreground backdrop-blur-md">
+          {project.image ? (
+            <span className="px-4 text-center text-2xl opacity-50">
+              Image
+              <br />
+              Placeholder
+            </span>
+          ) : (
+            "View Project"
+          )}
         </div>
       </motion.div>
 
       {/* Content description (Static) */}
-      <div className="p-8 flex-grow flex flex-col justify-between relative z-10 opacity-100 transition-opacity duration-300 group-hover:opacity-40">
+      <div className="relative z-10 flex grow flex-col justify-between p-8 opacity-100 transition-opacity duration-300 group-hover:opacity-40">
         <div>
-          <h3 className="text-3xl font-bold text-white mb-6 leading-tight group-hover:text-gray-400 transition-colors">
+          <h3 className="mb-6 text-3xl leading-tight font-bold text-foreground transition-colors group-hover:text-primary">
             {project.title}
           </h3>
         </div>
-        
-        <div className="flex justify-between items-end mt-12 w-full">
-          <span className="bg-red-500 text-white text-xs px-4 py-1.5 rounded-full font-medium">
+
+        <div className="mt-12 flex w-full items-end justify-between">
+          <span className="rounded-full bg-primary/85 px-4 py-1.5 text-xs font-medium text-primary-foreground">
             {project.category}
           </span>
-          
-          <span className="text-5xl font-black italic text-white/[0.05] transform pointer-events-none group-hover:text-white/[0.1] transition-colors">
+
+          <span className="pointer-events-none transform text-5xl font-black text-foreground/10 italic transition-colors group-hover:text-foreground/20">
             {project.year}
           </span>
         </div>
       </div>
-      
+
       {/* Glow Effect */}
-      <div className="absolute inset-0 bg-gray-500/0 group-hover:bg-gray-500/5 transition-colors duration-500 z-0" />
-      <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-gray-500/30 pointer-events-none transition-colors duration-300 z-20" />
+      <div className="absolute inset-0 z-0 bg-primary/0 transition-colors duration-500 group-hover:bg-primary/6" />
+      <div className="pointer-events-none absolute inset-0 z-20 rounded-2xl border-2 border-transparent transition-colors duration-300 group-hover:border-primary/25" />
     </motion.div>
-  );
+  )
 }
 
 export default function Work() {
   const [activeTab, setActiveTab] = useState('experience');
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto px-8 flex flex-col items-center">
+    <div className="mx-auto flex w-full max-w-350 flex-col items-center px-8">
       {/* Tabs */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
-        className="flex bg-[#2a2a2a] p-1 rounded-xl mb-16 border border-white/5"
+        className="mb-16 flex rounded-xl border border-border bg-card p-1"
       >
-        <button 
-          onClick={() => setActiveTab('experience')}
-          className={`px-8 py-3 rounded-lg text-sm font-medium transition-all ${
-            activeTab === 'experience' 
-              ? 'bg-[#3d3d3d] text-white shadow-lg' 
-              : 'text-white/60 hover:text-white hover:bg-white/5'
+        <button
+          onClick={() => setActiveTab("experience")}
+          className={`rounded-lg px-8 py-3 text-sm font-medium transition-all ${
+            activeTab === "experience"
+              ? "bg-primary/20 text-foreground shadow-lg"
+              : "text-muted-foreground hover:bg-background/60 hover:text-foreground"
           }`}
         >
           Experience
         </button>
-        <button 
-          onClick={() => setActiveTab('personal')}
-          className={`px-8 py-3 rounded-lg text-sm font-medium transition-all ${
-            activeTab === 'personal' 
-              ? 'bg-[#3d3d3d] text-white shadow-lg' 
-              : 'text-white/60 hover:text-white hover:bg-white/5'
+        <button
+          onClick={() => setActiveTab("personal")}
+          className={`rounded-lg px-8 py-3 text-sm font-medium transition-all ${
+            activeTab === "personal"
+              ? "bg-primary/20 text-foreground shadow-lg"
+              : "text-muted-foreground hover:bg-background/60 hover:text-foreground"
           }`}
         >
           Personal Projects
@@ -204,26 +212,26 @@ export default function Work() {
       </motion.div>
 
       {/* Grid */}
-      <motion.div 
+      <motion.div
         key={activeTab}
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-50px" }}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full"
+        className="grid w-full grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
       >
-        {projects.filter(p => p.tab === activeTab).map((project) => {
-          // Add discrete mouse tracking per card
-          return (
-            <HoverImageCard key={project.id} project={project} />
-          );
-        })}
-        {projects.filter(p => p.tab === activeTab).length === 0 && (
+        {projects
+          .filter((p) => p.tab === activeTab)
+          .map((project) => {
+            // Add discrete mouse tracking per card
+            return <HoverImageCard key={project.id} project={project} />
+          })}
+        {projects.filter((p) => p.tab === activeTab).length === 0 && (
           <div className="col-span-full py-20 text-center text-muted-foreground">
             No projects in this category yet.
           </div>
         )}
       </motion.div>
     </div>
-  );
+  )
 }

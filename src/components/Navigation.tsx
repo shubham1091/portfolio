@@ -95,18 +95,24 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="relative flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4 lg:py-6 max-w-350 mx-auto w-full">
-      <div className="flex items-center gap-3 relative z-20">
-        <div className="size-10 rounded-full overflow-hidden border-2 border-primary/20">
-          <img src="/logo.jpg" alt="Shubham logo" className="size-full object-cover" />
+    <nav className="relative mx-auto flex w-full max-w-350 items-center justify-between px-4 py-4 sm:px-6 lg:px-8 lg:py-6">
+      <div className="relative z-20 flex items-center gap-3">
+        <div className="size-10 overflow-hidden rounded-full border-2 border-primary/20">
+          <img
+            src="/logo.jpg"
+            alt="Shubham logo"
+            className="size-full object-cover"
+          />
         </div>
-        <span className="text-primary font-semibold text-sm sm:text-base">Home</span>
+        <span className="text-sm font-semibold text-primary sm:text-base">
+          Home
+        </span>
       </div>
 
-      <div className="hidden lg:flex items-center gap-6 text-sm font-medium">
+      <div className="hidden items-center gap-6 text-sm font-medium lg:flex">
         {navItems.map((item, index) => (
           <div key={item.name} className="flex items-center gap-6">
-            <MagneticLink 
+            <MagneticLink
               href={`#${item.id}`}
               isActive={activeSection === item.id}
               onClick={handleNavClick}
@@ -114,27 +120,34 @@ export default function Navigation() {
               {item.name}
             </MagneticLink>
             {index < navItems.length - 1 && (
-              <span className="text-muted-foreground/50 text-xs">/</span>
+              <span className="text-xs text-muted-foreground/50">/</span>
             )}
           </div>
         ))}
       </div>
 
-      <div className="hidden lg:flex relative z-20 items-center gap-4">
-        <Button variant="secondary" className="bg-secondary hover:bg-secondary/80 text-foreground border border-border rounded-xl gap-2 h-10 px-5 transition-all outline-none focus:outline-none ring-0 focus-visible:ring-0">
-          <FileText className="w-4 h-4 text-red-500" />
+      <div className="relative z-20 hidden items-center gap-4 lg:flex">
+        <Button
+          variant="secondary"
+          className="h-10 gap-2 rounded-xl border border-border bg-secondary px-5 text-foreground ring-0 transition-all outline-none hover:bg-secondary/80 focus:outline-none focus-visible:ring-0"
+        >
+          <FileText className="h-4 w-4 text-primary" />
           <span>Download Resume</span>
         </Button>
       </div>
 
       <button
         type="button"
-        aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+        aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
         aria-expanded={isMobileMenuOpen}
         onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-        className="lg:hidden relative z-20 inline-flex items-center justify-center rounded-xl border border-border bg-background size-10 text-foreground hover:bg-muted transition-colors"
+        className="relative z-20 inline-flex size-10 items-center justify-center rounded-xl border border-border bg-background text-foreground transition-colors hover:bg-muted lg:hidden"
       >
-        {isMobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+        {isMobileMenuOpen ? (
+          <X className="size-5" />
+        ) : (
+          <Menu className="size-5" />
+        )}
       </button>
 
       <AnimatePresence>
@@ -144,7 +157,7 @@ export default function Navigation() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.2 }}
-            className="lg:hidden absolute top-full left-4 right-4 mt-3 rounded-2xl border border-border bg-card/95 backdrop-blur-md p-4 z-30"
+            className="absolute top-full right-4 left-4 z-30 mt-3 rounded-2xl border border-border bg-card/95 p-4 backdrop-blur-md lg:hidden"
           >
             <div className="flex flex-col gap-2">
               {navItems.map((item) => (
@@ -153,7 +166,9 @@ export default function Navigation() {
                   href={`#${item.id}`}
                   onClick={(e) => handleNavClick(e, `#${item.id}`)}
                   className={`rounded-lg px-3 py-2.5 text-sm transition-colors ${
-                    activeSection === item.id ? 'text-primary bg-primary/10' : 'text-foreground/85 hover:text-primary hover:bg-muted/60'
+                    activeSection === item.id
+                      ? "bg-primary/10 text-primary"
+                      : "text-foreground/85 hover:bg-muted/60 hover:text-primary"
                   }`}
                 >
                   {item.name}
@@ -163,14 +178,14 @@ export default function Navigation() {
 
             <Button
               variant="secondary"
-              className="mt-4 w-full bg-secondary hover:bg-secondary/80 text-foreground border border-border rounded-xl gap-2 h-10 px-5 transition-all"
+              className="mt-4 h-10 w-full gap-2 rounded-xl border border-border bg-secondary px-5 text-foreground transition-all hover:bg-secondary/80"
             >
-              <FileText className="w-4 h-4 text-red-500" />
+              <FileText className="h-4 w-4 text-primary" />
               <span>Download Resume</span>
             </Button>
           </motion.div>
         )}
       </AnimatePresence>
     </nav>
-  );
+  )
 }

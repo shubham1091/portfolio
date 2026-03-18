@@ -66,63 +66,127 @@ function TiltBlock({ children, className }: { children: React.ReactNode, classNa
 
 export default function SocialGallery() {
   return (
-    <div className="w-full max-w-[1000px] mx-auto px-8 flex flex-col pt-20 pb-20">
-      <motion.div 
+    <div className="mx-auto flex w-full max-w-250 flex-col px-8 pt-20 pb-20">
+      <motion.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-50px" }}
         className="w-full"
       >
-        <motion.div variants={itemVariants} className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-white mb-4">Let's Build Together</h2>
-          <p className="text-white/60 font-medium">Have a project in mind or want to explore opportunities? Reach out.</p>
+        <motion.div variants={itemVariants} className="mb-16 text-center">
+          <h2 className="mb-4 text-4xl font-bold text-foreground">
+            Let's Build Together
+          </h2>
+          <p className="font-medium text-muted-foreground">
+            Have a project in mind or want to explore opportunities? Reach out.
+          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           {/* Email */}
-          <motion.div variants={itemVariants} className="h-48" style={{ perspective: "1000px" }}>
+          <motion.div
+            variants={itemVariants}
+            className="h-48"
+            style={{ perspective: "1000px" }}
+          >
             <TiltBlock>
-              <a href="mailto:shubhamverma1091@gmail.com" className="block w-full h-full group">
-                <div className="bg-[#181a40] group-hover:bg-[#b48af8]/20 rounded-3xl p-8 flex flex-col items-center justify-center text-center border border-white/5 group-hover:border-[#b48af8]/50 h-full transition-all duration-300 shadow-xl">
-                  <Mail className="w-10 h-10 text-white/50 group-hover:text-[#b48af8] mb-4 transition-colors" style={{ transform: "translateZ(20px)" }} />
-                  <span className="font-bold text-white tracking-wider" style={{ transform: "translateZ(10px)" }}>Email</span>
+              <a
+                href="mailto:shubhamverma1091@gmail.com"
+                className="group block h-full w-full"
+              >
+                <div className="flex h-full flex-col items-center justify-center rounded-3xl border border-border/70 bg-card p-8 text-center shadow-xl transition-all duration-300 group-hover:border-secondary group-hover:bg-secondary/45">
+                  <Mail
+                    className="mb-4 h-10 w-10 text-muted-foreground transition-colors group-hover:text-foreground"
+                    style={{ transform: "translateZ(20px)" }}
+                  />
+                  <span
+                    className="font-bold tracking-wider text-foreground"
+                    style={{ transform: "translateZ(10px)" }}
+                  >
+                    Email
+                  </span>
                 </div>
               </a>
             </TiltBlock>
           </motion.div>
 
           {/* Twitter */}
-          <motion.div variants={itemVariants} className="h-48" style={{ perspective: "1000px" }}>
+          <motion.div
+            variants={itemVariants}
+            className="h-48"
+            style={{ perspective: "1000px" }}
+          >
             <TiltBlock>
-              <a href="https://x.com/smithofcode" className="block w-full h-full group">
-                <div className="bg-[#181a40] group-hover:bg-[#1DA1F2]/20 rounded-3xl p-8 flex flex-col items-center justify-center text-center border border-white/5 group-hover:border-[#1DA1F2]/50 h-full transition-all duration-300 shadow-xl">
-                  <Twitter className="w-10 h-10 text-white/50 group-hover:text-[#1DA1F2] mb-4 transition-colors" style={{ transform: "translateZ(20px)" }} />
-                  <span className="font-bold text-white tracking-wider" style={{ transform: "translateZ(10px)" }}>Twitter</span>
+              <a
+                href="https://x.com/smithofcode"
+                className="group block h-full w-full"
+              >
+                <div className="flex h-full flex-col items-center justify-center rounded-3xl border border-border/70 bg-card p-8 text-center shadow-xl transition-all duration-300 group-hover:border-accent group-hover:bg-accent/30">
+                  <Twitter
+                    className="mb-4 h-10 w-10 text-muted-foreground transition-colors group-hover:text-accent-foreground"
+                    style={{ transform: "translateZ(20px)" }}
+                  />
+                  <span
+                    className="font-bold tracking-wider text-foreground"
+                    style={{ transform: "translateZ(10px)" }}
+                  >
+                    Twitter
+                  </span>
                 </div>
               </a>
             </TiltBlock>
           </motion.div>
 
           {/* Github */}
-          <motion.div variants={itemVariants} className="h-48" style={{ perspective: "1000px" }}>
+          <motion.div
+            variants={itemVariants}
+            className="h-48"
+            style={{ perspective: "1000px" }}
+          >
             <TiltBlock>
-              <a href="https://github.com/shubham1091" className="block w-full h-full group">
-                <div className="bg-[#181a40] group-hover:bg-white/20 rounded-3xl p-8 flex flex-col items-center justify-center text-center border border-white/5 group-hover:border-white/50 h-full transition-all duration-300 shadow-xl">
-                  <Github className="w-10 h-10 text-white/50 group-hover:text-white mb-4 transition-colors" style={{ transform: "translateZ(20px)" }} />
-                  <span className="font-bold text-white tracking-wider" style={{ transform: "translateZ(10px)" }}>GitHub</span>
+              <a
+                href="https://github.com/shubham1091"
+                className="group block h-full w-full"
+              >
+                <div className="flex h-full flex-col items-center justify-center rounded-3xl border border-border/70 bg-card p-8 text-center shadow-xl transition-all duration-300 group-hover:border-foreground/20 group-hover:bg-muted/70">
+                  <Github
+                    className="mb-4 h-10 w-10 text-muted-foreground transition-colors group-hover:text-foreground"
+                    style={{ transform: "translateZ(20px)" }}
+                  />
+                  <span
+                    className="font-bold tracking-wider text-foreground"
+                    style={{ transform: "translateZ(10px)" }}
+                  >
+                    GitHub
+                  </span>
                 </div>
               </a>
             </TiltBlock>
           </motion.div>
 
           {/* LinkedIn */}
-          <motion.div variants={itemVariants} className="h-48" style={{ perspective: "1000px" }}>
+          <motion.div
+            variants={itemVariants}
+            className="h-48"
+            style={{ perspective: "1000px" }}
+          >
             <TiltBlock>
-              <a href="https://www.linkedin.com/in/shubham-real/" className="block w-full h-full group">
-                <div className="bg-[#181a40] group-hover:bg-[#0A66C2]/20 rounded-3xl p-8 flex flex-col items-center justify-center text-center border border-white/5 group-hover:border-[#0A66C2]/50 h-full transition-all duration-300 shadow-xl">
-                  <Linkedin className="w-10 h-10 text-white/50 group-hover:text-[#0A66C2] mb-4 transition-colors" style={{ transform: "translateZ(20px)" }} />
-                  <span className="font-bold text-white tracking-wider" style={{ transform: "translateZ(10px)" }}>LinkedIn</span>
+              <a
+                href="https://www.linkedin.com/in/shubham-real/"
+                className="group block h-full w-full"
+              >
+                <div className="flex h-full flex-col items-center justify-center rounded-3xl border border-border/70 bg-card p-8 text-center shadow-xl transition-all duration-300 group-hover:border-primary/55 group-hover:bg-primary/18">
+                  <Linkedin
+                    className="mb-4 h-10 w-10 text-muted-foreground transition-colors group-hover:text-primary"
+                    style={{ transform: "translateZ(20px)" }}
+                  />
+                  <span
+                    className="font-bold tracking-wider text-foreground"
+                    style={{ transform: "translateZ(10px)" }}
+                  >
+                    LinkedIn
+                  </span>
                 </div>
               </a>
             </TiltBlock>
@@ -130,5 +194,5 @@ export default function SocialGallery() {
         </div>
       </motion.div>
     </div>
-  );
+  )
 }

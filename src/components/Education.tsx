@@ -43,47 +43,48 @@ const itemVariants: Variants = {
 
 export default function Education() {
   return (
-    <div className="w-full max-w-[1400px] mx-auto px-8 flex flex-col items-center">
-      <motion.div 
+    <div className="mx-auto flex w-full max-w-350 flex-col items-center px-8">
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
-        className="w-full mb-16 flex items-center justify-between"
+        className="mb-16 flex w-full items-center justify-between"
       >
-        <h2 className="text-3xl font-bold text-white flex items-center gap-4">
-          <span className="text-primary font-mono text-xl">02.</span> Education Background
-          <div className="h-[1px] w-32 bg-white/10 ml-4 hidden md:block"></div>
+        <h2 className="flex items-center gap-4 text-3xl font-bold text-foreground">
+          <span className="font-mono text-xl text-primary">02.</span> Education
+          Background
+          <div className="ml-4 hidden h-px w-32 bg-border md:block"></div>
         </h2>
       </motion.div>
 
-      <motion.div 
+      <motion.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-50px" }}
-        className="w-full max-w-[800px] relative border-l border-white/10 ml-4 md:ml-0 md:pl-8 space-y-12"
+        className="relative ml-4 w-full max-w-200 space-y-12 border-l border-border md:ml-0 md:pl-8"
       >
         {educationData.map((item) => (
-          <motion.div 
+          <motion.div
             variants={itemVariants}
-            key={item.id} 
+            key={item.id}
             className="relative pl-8 md:pl-0"
           >
             {/* Timeline Dot */}
-            <div className="absolute left-[-5.5px] md:left-[-37.5px] top-1.5 w-3 h-3 rounded-full bg-primary border border-[#181a40] shadow-[0_0_0_4px_rgba(255,255,255,0.05)]" />
-            
-            <div className="group bg-[#2a2a2a]/50 hover:bg-[#2a2a2a] p-6 rounded-2xl border border-white/5 transition-colors duration-300">
-              <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4 gap-2">
-                <h3 className="text-xl font-bold text-white group-hover:text-primary transition-colors">
+            <div className="absolute top-1.5 left-[-5.5px] h-3 w-3 rounded-full border border-card bg-primary shadow-[0_0_0_4px_rgba(150,120,150,0.08)] md:left-[-37.5px]" />
+
+            <div className="group rounded-2xl border border-border/60 bg-card/75 p-6 transition-colors duration-300 hover:bg-card">
+              <div className="mb-4 flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+                <h3 className="text-xl font-bold text-foreground transition-colors group-hover:text-primary">
                   {item.degree}
                 </h3>
-                <span className="text-sm font-mono text-white/50 bg-white/5 px-3 py-1 rounded-full w-fit">
+                <span className="w-fit rounded-full bg-muted/70 px-3 py-1 font-mono text-sm text-muted-foreground">
                   {item.year}
                 </span>
               </div>
-              
-              <h4 className="text-lg text-blue-400 mb-4">{item.school}</h4>
-              <p className="text-sm text-white/70 leading-relaxed">
+
+              <h4 className="mb-4 text-lg text-primary">{item.school}</h4>
+              <p className="text-sm leading-relaxed text-muted-foreground">
                 {item.description}
               </p>
             </div>
@@ -91,5 +92,5 @@ export default function Education() {
         ))}
       </motion.div>
     </div>
-  );
+  )
 }

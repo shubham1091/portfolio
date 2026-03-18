@@ -138,27 +138,59 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
     <>
       <group position={[0, 4, 0]}>
         <RigidBody ref={fixed} {...segmentProps} type="fixed" />
-        <RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps}><BallCollider args={[0.1]} /></RigidBody>
-        <RigidBody position={[1, 0, 0]} ref={j2} {...segmentProps}><BallCollider args={[0.1]} /></RigidBody>
-        <RigidBody position={[1.5, 0, 0]} ref={j3} {...segmentProps}><BallCollider args={[0.1]} /></RigidBody>
-        <RigidBody position={[2, 0, 0]} ref={card} {...segmentProps} type={dragged ? 'kinematicPosition' : 'dynamic'}>
+        <RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps}>
+          <BallCollider args={[0.1]} />
+        </RigidBody>
+        <RigidBody position={[1, 0, 0]} ref={j2} {...segmentProps}>
+          <BallCollider args={[0.1]} />
+        </RigidBody>
+        <RigidBody position={[1.5, 0, 0]} ref={j3} {...segmentProps}>
+          <BallCollider args={[0.1]} />
+        </RigidBody>
+        <RigidBody
+          position={[2, 0, 0]}
+          ref={card}
+          {...segmentProps}
+          type={dragged ? "kinematicPosition" : "dynamic"}
+        >
           <CuboidCollider args={[0.8, 1.125, 0.01]} />
           <group
             scale={2.25}
             position={[0, -1.2, -0.05]}
             onPointerOver={isInteractive ? () => hover(true) : undefined}
             onPointerOut={isInteractive ? () => hover(false) : undefined}
-            onPointerUp={isInteractive ? (e: ThreeEvent<PointerEvent>) => {
-              const target = e.currentTarget as HTMLElement
-              target.releasePointerCapture(e.pointerId)
-              drag(false)
-            } : undefined}
-            onPointerDown={isInteractive ? (e: ThreeEvent<PointerEvent>) => (
-              (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId),
-              drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())))
-            ) : undefined}>
+            onPointerUp={
+              isInteractive
+                ? (e: ThreeEvent<PointerEvent>) => {
+                    const target = e.currentTarget as HTMLElement
+                    target.releasePointerCapture(e.pointerId)
+                    drag(false)
+                  }
+                : undefined
+            }
+            onPointerDown={
+              isInteractive
+                ? (e: ThreeEvent<PointerEvent>) => (
+                    (e.currentTarget as HTMLElement).setPointerCapture(
+                      e.pointerId
+                    ),
+                    drag(
+                      new THREE.Vector3()
+                        .copy(e.point)
+                        .sub(vec.copy(card.current.translation()))
+                    )
+                  )
+                : undefined
+            }
+          >
             <mesh geometry={nodes.card.geometry}>
-              <meshStandardMaterial map={materials.base.map} roughness={0.5} metalness={0.2} transparent opacity={1} />
+              <meshStandardMaterial
+                map={materials.base.map}
+                roughness={0.5}
+                metalness={0.2}
+                transparent
+                opacity={1}
+              />
             </mesh>
             <mesh geometry={nodes.clip.geometry} material={materials.metal} />
             <mesh geometry={nodes.clamp.geometry} material={materials.metal} />
@@ -167,7 +199,15 @@ function Band({ maxSpeed = 50, minSpeed = 10 }) {
       </group>
       <mesh ref={band}>
         <meshLineGeometry />
-        <meshLineMaterial color="white" depthTest={false} resolution={[width, height]} useMap map={bandTexture} repeat={[-3, 1]} lineWidth={1} />
+        <meshLineMaterial
+          color="#4ea5a9"
+          depthTest={false}
+          resolution={[width, height]}
+          useMap
+          map={bandTexture}
+          repeat={[-3, 1]}
+          lineWidth={1}
+        />
       </mesh>
     </>
   )
@@ -178,13 +218,13 @@ export default function HangingCard() {
 
   if (error) {
     return (
-      <div className="w-full h-150 flex items-center justify-center bg-indigo-900/10 rounded-3xl text-sm text-white/60 border border-white/5 p-8 text-center">
+      <div className="flex h-150 w-full items-center justify-center rounded-3xl border border-border/70 bg-card/70 p-8 text-center text-sm text-muted-foreground">
         <div>
-          <p className="font-bold mb-2">3D Scene Unavailable</p>
+          <p className="mb-2 font-bold">3D Scene Unavailable</p>
           <p className="opacity-70">{error}</p>
         </div>
       </div>
-    );
+    )
   }
 
   return (

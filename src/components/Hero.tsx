@@ -42,104 +42,141 @@ export default function Hero() {
   }, []);
 
   return (
-    <div className="relative w-full min-h-[88vh] lg:min-h-[80vh] flex flex-col items-center justify-center overflow-hidden">
+    <div className="relative flex min-h-[88vh] w-full flex-col items-center justify-center overflow-hidden lg:min-h-[80vh]">
       {/* Background large text "SERGIO" */}
-      <motion.h1 
+      <motion.h1
         style={{ y: yParallax }}
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.2 }}
-        className="absolute top-[14%] lg:top-[10%] left-1/2 -translate-x-1/2 text-[22vw] lg:text-[18vw] font-black tracking-tighter text-white/3 select-none pointer-events-none whitespace-nowrap leading-none z-0"
+        className="pointer-events-none absolute top-[14%] left-1/2 z-0 -translate-x-1/2 text-[22vw] leading-none font-black tracking-tighter whitespace-nowrap text-foreground/8 select-none lg:top-[10%] lg:text-[18vw]"
       >
         SHUBHAM
       </motion.h1>
 
       {/* Main content area */}
-      <div className="relative z-10 w-full max-w-350 px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row justify-between items-center lg:items-end mt-8 md:mt-12 lg:mt-20 gap-7 lg:gap-0 pb-8">
-        
+      <div className="relative z-10 mt-8 flex w-full max-w-350 flex-col items-center justify-between gap-7 px-4 pb-8 sm:px-6 md:mt-12 lg:mt-20 lg:flex-row lg:items-end lg:gap-0 lg:px-8">
         {/* Left text block */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="order-2 lg:order-1 max-w-full lg:max-w-100 text-center lg:text-left z-20 mt-2 lg:mt-0"
+          className="z-20 order-2 mt-2 max-w-full text-center lg:order-1 lg:mt-0 lg:max-w-100 lg:text-left"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-2 lg:mb-4 flex items-center justify-center lg:justify-start gap-2">
-            Hello<span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl">👋</span>,
+          <h2 className="mb-2 flex items-center justify-center gap-2 text-3xl font-bold sm:text-4xl md:text-5xl lg:mb-4 lg:justify-start lg:text-6xl">
+            Hello
+            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
+              👋
+            </span>
+            ,
           </h2>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 lg:mb-6">I'm Shubham</h2>
-          <p className="text-[11px] sm:text-xs md:text-sm tracking-[0.08em] md:tracking-[0.2em] text-muted-foreground/80 font-medium mb-5 lg:mb-8 max-w-[320px] lg:max-w-full mx-auto lg:mx-0">
+          <h2 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl lg:mb-6 lg:text-6xl">
+            I'm Shubham
+          </h2>
+          <p className="mx-auto mb-5 max-w-[320px] text-[11px] font-medium tracking-[0.08em] text-muted-foreground/80 sm:text-xs md:text-sm md:tracking-[0.2em] lg:mx-0 lg:mb-8 lg:max-w-full">
             DATA GOVERNANCE & AI STRATEGIST | FULL-STACK ENGINEER
           </p>
-          
-          <div className="space-y-2 text-[13px] sm:text-sm md:text-[15px] leading-relaxed text-foreground/80 px-2 sm:px-0">
-            <p>A practitioner synthesizing ethical governance and executive strategy.</p>
-            <p>Bridging the gap between abstract algorithmic theory and commercial application.</p>
-            <p className="text-muted-foreground mt-4 block">"Algorithms require structural empathy and ethical rigor."</p>
+
+          <div className="space-y-2 px-2 text-[13px] leading-relaxed text-foreground/80 sm:px-0 sm:text-sm md:text-[15px]">
+            <p>
+              A practitioner synthesizing ethical governance and executive
+              strategy.
+            </p>
+            <p>
+              Bridging the gap between abstract algorithmic theory and
+              commercial application.
+            </p>
+            <p className="mt-4 block text-muted-foreground">
+              "Algorithms require structural empathy and ethical rigor."
+            </p>
           </div>
         </motion.div>
 
         {/* Center portrait (Masked image) */}
-        <div className="order-1 lg:order-2 relative lg:absolute left-auto lg:left-1/2 top-auto lg:top-0 lg:bottom-0 translate-x-0 lg:-translate-x-1/2 w-65 h-65 sm:w-80 sm:h-80 md:w-95 md:h-95 lg:w-150 lg:h-150 z-0">
-          <motion.div 
+        <div className="relative top-auto left-auto z-0 order-1 h-65 w-65 translate-x-0 sm:h-80 sm:w-80 md:h-95 md:w-95 lg:absolute lg:top-0 lg:bottom-0 lg:left-1/2 lg:order-2 lg:h-150 lg:w-150 lg:-translate-x-1/2">
+          <motion.div
             ref={imageContainerRef}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.3, type: "spring", stiffness: 100 }}
-            className="w-full h-full rounded-full overflow-hidden border border-border z-0 group cursor-pointer pointer-events-auto relative"
+            transition={{
+              duration: 1,
+              delay: 0.3,
+              type: "spring",
+              stiffness: 100,
+            }}
+            className="group pointer-events-auto relative z-0 h-full w-full cursor-pointer overflow-hidden rounded-full border border-border"
           >
             {/* Illustration (Default state) */}
-            <div 
-              className="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-500 group-hover:opacity-0" 
+            <div
+              className="absolute inset-0 h-full w-full bg-cover bg-center transition-opacity duration-500 group-hover:opacity-0"
               style={{ backgroundImage: "url('/hero-image-illustration.png')" }}
             />
 
             {/* Real Image (Hover state) */}
-            <div 
-              className="absolute inset-0 w-full h-full bg-cover bg-center opacity-0 transition-opacity duration-500 group-hover:opacity-100" 
+            <div
+              className="absolute inset-0 h-full w-full bg-cover bg-center opacity-0 transition-opacity duration-500 group-hover:opacity-100"
               style={{ backgroundImage: "url('/hero-image.png')" }}
             />
           </motion.div>
         </div>
 
         {/* Right info block */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.7 }}
-          className="order-3 w-full max-w-md lg:max-w-[320px] text-sm z-10 text-center lg:text-left bg-black/20 lg:bg-transparent p-4 sm:p-6 lg:p-0 rounded-2xl lg:rounded-none backdrop-blur-sm lg:backdrop-blur-none border border-white/5 lg:border-none mt-2 lg:mt-0"
+          className="z-10 order-3 mt-2 w-full max-w-md rounded-2xl border border-border/60 bg-card/70 p-4 text-center text-sm backdrop-blur-sm sm:p-6 lg:mt-0 lg:max-w-[320px] lg:rounded-none lg:border-none lg:bg-transparent lg:p-0 lg:text-left lg:backdrop-blur-none"
         >
-          <p className="text-base lg:text-lg font-medium mb-4 lg:mb-6">Quick Links:</p>
-          
-          <div className="flex flex-wrap lg:flex-nowrap justify-center lg:justify-start bg-black/40 rounded-lg p-1 w-full lg:w-fit mb-5 lg:mb-8 backdrop-blur-md border border-white/10">
-            <a href="#work" className="bg-primary hover:bg-primary/80 text-white px-6 py-2 rounded-md font-medium transition-colors w-full lg:w-auto text-center">View Projects</a>
-            <a href="#about" className="px-6 py-2 text-white/80 hover:text-white transition-colors w-1/2 lg:w-auto text-center">About Me</a>
-            <a href="#gallery" className="px-3 py-2 text-white/80 hover:text-white transition-colors border-l border-white/10 ml-1 w-1/2 lg:w-auto flex justify-center lg:justify-start">
-              <div className="border border-orange-500/50 rounded p-1">
-                <Maximize2 className="w-4 h-4 text-orange-400" />
+          <p className="mb-4 text-base font-medium lg:mb-6 lg:text-lg">
+            Quick Links:
+          </p>
+
+          <div className="mb-5 flex w-full flex-wrap justify-center rounded-lg border border-border bg-background/70 p-1 backdrop-blur-md lg:mb-8 lg:w-fit lg:flex-nowrap lg:justify-start">
+            <a
+              href="#work"
+              className="w-full rounded-md bg-primary px-6 py-2 text-center font-medium text-primary-foreground transition-colors hover:bg-primary/80 lg:w-auto"
+            >
+              View Projects
+            </a>
+            <a
+              href="#about"
+              className="w-1/2 px-6 py-2 text-center text-foreground/80 transition-colors hover:text-foreground lg:w-auto"
+            >
+              About Me
+            </a>
+            <a
+              href="#gallery"
+              className="ml-1 flex w-1/2 justify-center border-l border-border px-3 py-2 text-foreground/80 transition-colors hover:text-foreground lg:w-auto lg:justify-start"
+            >
+              <div className="rounded border border-primary/50 p-1">
+                <Maximize2 className="h-4 w-4 text-primary" />
               </div>
             </a>
           </div>
-          
-          <div className="space-y-4 lg:space-y-6 text-[12px] lg:text-[13px] leading-relaxed text-white/70">
+
+          <div className="space-y-4 text-[12px] leading-relaxed text-muted-foreground lg:space-y-6 lg:text-[13px]">
             <p>
-              Hey there! Thanks for stopping by.<br className="hidden lg:block"/>
-              This portfolio is built with React, Vite,<br className="hidden lg:block"/>
+              Hey there! Thanks for stopping by.
+              <br className="hidden lg:block" />
+              This portfolio is built with React, Vite,
+              <br className="hidden lg:block" />
               and Framer Motion.
             </p>
-            
+
             <p className="hidden lg:block">
-              For the best experience, view this site<br/>
-              on a desktop browser to see all the<br/>
+              For the best experience, view this site
+              <br />
+              on a desktop browser to see all the
+              <br />
               custom interactions.
             </p>
-            
-            <p className="text-primary/80 font-medium">
+
+            <p className="font-medium text-primary/80">
               Currently open for new opportunities.
             </p>
           </div>
         </motion.div>
       </div>
     </div>
-  );
+  )
 }

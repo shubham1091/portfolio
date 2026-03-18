@@ -19,33 +19,33 @@ export default function Loader({ onLoadingComplete }: { onLoadingComplete: () =>
       {isLoading && (
         <motion.div
           initial={{ opacity: 1 }}
-          exit={{ 
+          exit={{
             opacity: 0,
-            transition: { duration: 0.8, ease: "easeInOut" }
+            transition: { duration: 0.8, ease: "easeInOut" },
           }}
-          className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-[#1a1a1a]"
+          className="fixed inset-0 z-10000 flex flex-col items-center justify-center bg-background"
         >
           <div className="overflow-hidden">
             <motion.h1
               initial={{ y: 100, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ 
-                duration: 0.8, 
-                ease: [0.76, 0, 0.24, 1] 
+              transition={{
+                duration: 0.8,
+                ease: [0.76, 0, 0.24, 1],
               }}
-              className="text-4xl md:text-6xl font-black text-white tracking-tighter"
+              className="text-4xl font-black tracking-tighter text-foreground md:text-6xl"
             >
               SMITHOFCODE<span className="text-primary">.</span>
             </motion.h1>
           </div>
-          
-          <motion.div 
-            className="w-48 h-[2px] bg-white/10 mt-8 overflow-hidden rounded-full"
+
+          <motion.div
+            className="mt-8 h-0.5 w-48 overflow-hidden rounded-full bg-border"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            <motion.div 
+            <motion.div
               className="h-full bg-primary"
               initial={{ x: "-100%" }}
               animate={{ x: "0%" }}
@@ -55,5 +55,5 @@ export default function Loader({ onLoadingComplete }: { onLoadingComplete: () =>
         </motion.div>
       )}
     </AnimatePresence>
-  );
+  )
 }

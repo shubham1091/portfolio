@@ -2,8 +2,8 @@ import { motion } from 'framer-motion';
 
 export default function BackgroundOrbs() {
   return (
-    <div className="fixed inset-0 min-h-screen overflow-hidden pointer-events-none z-0">
-      {/* Top right gray orb */}
+    <div className="pointer-events-none fixed inset-0 z-0 min-h-screen overflow-hidden">
+      {/* Top right accent orb */}
       <motion.div
         animate={{
           x: [0, 50, 0, -50, 0],
@@ -13,12 +13,12 @@ export default function BackgroundOrbs() {
         transition={{
           duration: 20,
           repeat: Infinity,
-          ease: "linear"
+          ease: "linear",
         }}
-        className="absolute top-[10%] -right-[10%] w-[500px] h-[500px] rounded-full bg-gray-600/20 blur-[120px]"
+        className="absolute top-[10%] -right-[10%] h-125 w-125 rounded-full bg-primary/18 blur-[120px]"
       />
-      
-      {/* Bottom left gray orb */}
+
+      {/* Bottom left accent orb */}
       <motion.div
         animate={{
           x: [0, -60, -20, 40, 0],
@@ -28,26 +28,26 @@ export default function BackgroundOrbs() {
         transition={{
           duration: 25,
           repeat: Infinity,
-          ease: "linear"
+          ease: "linear",
         }}
-        className="absolute top-[60%] -left-[10%] w-[600px] h-[600px] rounded-full bg-gray-700/20 blur-[150px]"
+        className="absolute top-[60%] -left-[10%] h-150 w-150 rounded-full bg-accent/20 blur-[150px]"
       />
-      
-      {/* Center accent red orb */}
+
+      {/* Center soft orb */}
       <motion.div
         animate={{
           x: [0, 30, -20, 0],
           y: [0, -30, 20, 0],
           scale: [0.8, 1, 0.9, 0.8],
-          opacity: [0.3, 0.6, 0.3]
+          opacity: [0.3, 0.6, 0.3],
         }}
         transition={{
           duration: 15,
           repeat: Infinity,
-          ease: "easeInOut"
+          ease: "easeInOut",
         }}
-        className="absolute top-[30%] left-[30%] w-[400px] h-[400px] rounded-full bg-red-500/20 blur-[100px]"
+        className="absolute top-[30%] left-[30%] h-100 w-100 rounded-full bg-secondary/35 blur-[100px]"
       />
     </div>
-  );
+  )
 }

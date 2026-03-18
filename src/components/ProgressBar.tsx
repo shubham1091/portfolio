@@ -12,8 +12,8 @@ export default function ProgressBar() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500 transform origin-left z-[5000]"
+      className="fixed top-0 right-0 left-0 z-5000 h-1 origin-left transform bg-linear-to-r from-primary via-secondary to-accent"
       style={{ scaleX }}
     />
-  );
+  )
 }
