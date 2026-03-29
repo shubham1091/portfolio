@@ -74,20 +74,20 @@ export default function Hero() {
             I'm Shubham
           </h2>
           <p className="mx-auto mb-5 max-w-[320px] text-[11px] font-medium tracking-[0.08em] text-muted-foreground/80 sm:text-xs md:text-sm md:tracking-[0.2em] lg:mx-0 lg:mb-8 lg:max-w-full">
-            DATA GOVERNANCE & AI STRATEGIST | FULL-STACK ENGINEER
+            JUNIOR BUSINESS ANALYST | MSC BUSINESS ANALYTICS (DISTINCTION)
           </p>
 
           <div className="space-y-2 px-2 text-[13px] leading-relaxed text-foreground/80 sm:px-0 sm:text-sm md:text-[15px]">
             <p>
-              A practitioner synthesizing ethical governance and executive
-              strategy.
+              Analytically minded and detail-oriented with an MSc (Distinction) 
+              from Keele University and recognized as Student of the Year.
             </p>
             <p>
-              Bridging the gap between abstract algorithmic theory and
-              commercial application.
+              Bridging the gap between complex data analysis and 
+              practical business decisions.
             </p>
-            <p className="mt-4 block text-muted-foreground">
-              "Algorithms require structural empathy and ethical rigor."
+            <p className="mt-4 block text-muted-foreground italic">
+              "Driven by using data to drive clear, practical business decisions."
             </p>
           </div>
         </motion.div>

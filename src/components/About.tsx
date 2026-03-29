@@ -22,7 +22,7 @@ export default function About() {
       >
         <motion.div
           variants={itemVariants}
-          className="rounded-3xl border border-border/70 bg-card/70 p-4 backdrop-blur-sm lg:col-span-5 lg:row-span-2"
+          className="rounded-3xl border border-border/70 bg-card/70 p-4 backdrop-blur-sm lg:col-span-5 lg:row-span-3"
         >
           <Suspense
             fallback={
@@ -46,53 +46,92 @@ export default function About() {
             </span>
           </h2>
           <p className="mt-6 text-[15px] leading-relaxed text-foreground/75">
-            I am a highly analytical professional blending data science,
-            enterprise strategy, and full-stack engineering. With a foundation
-            in theoretical mathematics, I connect algorithmic optimization with
-            practical business outcomes and product delivery.
+            Analytically minded and detail-oriented Junior Business Analyst with
+            an MSc in Business Analytics (Distinction) from Keele University,
+            where I was recognised as Student of the Year.
           </p>
           <p className="mt-4 text-[15px] leading-relaxed text-foreground/70">
-            Currently pursuing an M.Sc. in Business Analytics at Keele
-            University, I work across AI governance, compliance, and systems
-            development, with hands-on focus in TypeScript, Python, cloud
-            security, and enterprise architecture.
+            I bring hands-on experience across data analysis, machine learning,
+            business intelligence, and AI governance, gained through elected
+            student leadership, a university consultancy placement, and
+            independent community education work. I am motivated by using data
+            to drive clear, practical business decisions.
           </p>
         </motion.div>
 
         <motion.div
           variants={itemVariants}
-          className="rounded-3xl border border-border/70 bg-card/80 p-7 lg:col-span-4"
+          className="rounded-3xl border border-border/70 bg-card/80 p-7 lg:col-span-7"
         >
           <p className="text-sm tracking-[0.18em] text-foreground/50 uppercase">
-            Core Areas
+            Core Skills
           </p>
-          <div className="mt-5 flex flex-wrap gap-2.5">
-            <span className="rounded-full border border-primary/45 bg-primary/15 px-3 py-1 text-xs text-foreground">
-              AI Strategy
-            </span>
-            <span className="rounded-full border border-border bg-muted/50 px-3 py-1 text-xs text-foreground/80">
-              Data Governance
-            </span>
-            <span className="rounded-full border border-border bg-muted/50 px-3 py-1 text-xs text-foreground/80">
-              TypeScript
-            </span>
-            <span className="rounded-full border border-border bg-muted/50 px-3 py-1 text-xs text-foreground/80">
-              Cloud Security
-            </span>
-            <span className="rounded-full border border-border bg-muted/50 px-3 py-1 text-xs text-foreground/80">
-              Public Policy
-            </span>
+          <div className="mt-5 space-y-5">
+            {/* Technical */}
+            <div>
+              <p className="mb-2 text-xs font-semibold text-foreground/70 uppercase tracking-wider">
+                Technical
+              </p>
+              <div className="flex flex-wrap gap-2.5">
+                {["Python", "SQL", "Git", "Excel", "Tableau", "Power BI", "Jira"].map((skill) => (
+                  <span key={skill} className="rounded-full border border-secondary/45 bg-secondary/15 px-3 py-1 text-xs text-foreground">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Analytical */}
+            <div>
+              <p className="mb-2 text-xs font-semibold text-foreground/70 uppercase tracking-wider">
+                Analytical
+              </p>
+              <div className="flex flex-wrap gap-2.5">
+                {[
+                  "Machine Learning",
+                  "Data Visualisation",
+                  "BI Pipeline Design",
+                  "Cloud Architecture",
+                  "Statistical Analysis"
+                ].map((skill) => (
+                  <span key={skill} className="rounded-full border border-accent/45 bg-accent/15 px-3 py-1 text-xs text-foreground">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Business */}
+            <div>
+              <p className="mb-2 text-xs font-semibold text-foreground/70 uppercase tracking-wider">
+                Business
+              </p>
+              <div className="flex flex-wrap gap-2.5">
+                {[
+                  "Requirements Gathering",
+                  "Agile & Scrum",
+                  "Stakeholder Engagement",
+                  "Process Mapping",
+                  "AI Ethics & Governance",
+                  "Strategic Frameworks"
+                ].map((skill) => (
+                  <span key={skill} className="rounded-full border border-primary/45 bg-primary/15 px-3 py-1 text-xs text-foreground">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </motion.div>
 
         <motion.div
           variants={itemVariants}
-          className="rounded-3xl border border-border/70 bg-card/80 p-7 lg:col-span-3"
+          className="rounded-3xl border border-border/70 bg-card/80 p-7 lg:col-span-7"
         >
           <p className="text-sm tracking-[0.18em] text-foreground/50 uppercase">
             Now
           </p>
-          <p className="mt-4 text-[15px] leading-relaxed text-foreground/80">
+          <p className="mt-4 max-w-130 text-[15px] leading-relaxed text-foreground/80">
             Building robust products and decision systems where governance,
             usability, and measurable impact can coexist.
           </p>

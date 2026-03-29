@@ -1,64 +1,8 @@
 import { useState } from 'react';
 import { motion, type Variants, useMotionValue, useSpring } from 'framer-motion';
 
-const projects = [
-  {
-    id: 1,
-    title: "AI & Analytics Strategist",
-    category: 'Stratifae (London)',
-    year: '2025-Present',
-    image: '/placeholder-hero.png',
-    tab: 'experience'
-  },
-  {
-    id: 2,
-    title: "AI Ethics & Data Governance Consultant",
-    category: 'OpenPlan / Mondrem',
-    year: '2025',
-    image: '/placeholder-work-1.png',
-    tab: 'experience'
-  },
-  {
-    id: 3,
-    title: "Association Secretary & Trustee",
-    category: 'Keele Postgrad Assoc.',
-    year: '2025-Present',
-    image: '/placeholder-work-2.png',
-    tab: 'experience'
-  },
-  {
-    id: 4,
-    title: "Global Community Manager (15k+ Members)",
-    category: 'Pooja Dutt Tech',
-    year: '2022-2025',
-    image: '/placeholder-work-3.png',
-    tab: 'experience'
-  },
-  {
-    id: 5,
-    title: "Dropbox Cloud Architecture Clone",
-    category: 'TS / React',
-    year: '2023',
-    image: '/placeholder-hero.png',
-    tab: 'personal'
-  },
-  {
-    id: 6,
-    title: "Netflix High-Concurrency Simulator",
-    category: 'Full-Stack',
-    year: '2023',
-    image: '/placeholder-work-1.png',
-    tab: 'personal'
-  },
-  {
-    id: 7,
-    title: "Real-Time WebSocket Chat Network",
-    category: 'Sockets / Typescript',
-    year: '2023',
-    image: '/placeholder-work-2.png',
-    tab: 'personal'
-  }
-];
+import { projects } from '@/data/projects';
+import { Link } from 'react-router-dom';
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -109,107 +53,108 @@ function HoverImageCard({ project }: { project: typeof projects[0] }) {
   };
 
   return (
-    <motion.div
-      variants={itemVariants}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => {
-        setIsHovered(false)
-        x.set(0)
-        y.set(0)
-        rotateSpring.set(0)
-      }}
-      onMouseMove={handleMouseMove}
-      className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-border/60 bg-card"
-    >
-      {/* Floating Image Reveal Element */}
+    <Link to={`/work/${project.id}`}>
       <motion.div
-        style={{
-          x: xSpring,
-          y: ySpring,
-          rotate: rotateSpring,
-          translateX: "-50%",
-          translateY: "-50%",
+        variants={itemVariants}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => {
+          setIsHovered(false)
+          x.set(0)
+          y.set(0)
+          rotateSpring.set(0)
         }}
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{
-          opacity: isHovered ? 1 : 0,
-          scale: isHovered ? 1 : 0.5,
-        }}
-        transition={{ duration: 0.3 }}
-        className="pointer-events-none absolute top-1/2 left-1/2 z-30 aspect-4/3 w-4/5 overflow-hidden rounded-xl border border-white/10 shadow-2xl"
+        onMouseMove={handleMouseMove}
+        className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-border/60 bg-card"
       >
-        <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-secondary/80 to-primary/70 font-bold text-primary-foreground backdrop-blur-md">
-          {project.image ? (
-            <span className="px-4 text-center text-2xl opacity-50">
-              Image
-              <br />
-              Placeholder
+        {/* Floating Image Reveal Element */}
+        <motion.div
+          style={{
+            x: xSpring,
+            y: ySpring,
+            rotate: rotateSpring,
+            translateX: "-50%",
+            translateY: "-50%",
+          }}
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{
+            opacity: isHovered ? 1 : 0,
+            scale: isHovered ? 1 : 0.5,
+          }}
+          transition={{ duration: 0.3 }}
+          className="pointer-events-none absolute top-1/2 left-1/2 z-30 aspect-4/3 w-4/5 overflow-hidden rounded-xl border border-white/10 shadow-2xl"
+        >
+          <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-secondary/80 to-primary/70 font-bold text-primary-foreground backdrop-blur-md">
+            {project.image ? (
+              <span className="px-4 text-center text-2xl opacity-50">
+                View Details
+              </span>
+            ) : (
+              "View Project"
+            )}
+          </div>
+        </motion.div>
+
+        {/* Content description (Static) */}
+        <div className="relative z-10 flex grow flex-col justify-between p-8 opacity-100 transition-opacity duration-300 group-hover:opacity-40">
+          <div>
+            <h3 className="mb-6 text-3xl leading-tight font-bold text-foreground transition-colors group-hover:text-primary">
+              {project.title}
+            </h3>
+          </div>
+
+          <div className="mt-12 flex w-full items-end justify-between">
+            <span className="rounded-full bg-primary/85 px-4 py-1.5 text-xs font-medium text-primary-foreground">
+              {project.category}
             </span>
-          ) : (
-            "View Project"
-          )}
+
+            <span className="pointer-events-none transform text-5xl font-black text-foreground/10 italic transition-colors group-hover:text-foreground/20">
+              {project.year}
+            </span>
+          </div>
         </div>
+
+        {/* Glow Effect */}
+        <div className="absolute inset-0 z-0 bg-primary/0 transition-colors duration-500 group-hover:bg-primary/6" />
+        <div className="pointer-events-none absolute inset-0 z-20 rounded-2xl border-2 border-transparent transition-colors duration-300 group-hover:border-primary/25" />
       </motion.div>
-
-      {/* Content description (Static) */}
-      <div className="relative z-10 flex grow flex-col justify-between p-8 opacity-100 transition-opacity duration-300 group-hover:opacity-40">
-        <div>
-          <h3 className="mb-6 text-3xl leading-tight font-bold text-foreground transition-colors group-hover:text-primary">
-            {project.title}
-          </h3>
-        </div>
-
-        <div className="mt-12 flex w-full items-end justify-between">
-          <span className="rounded-full bg-primary/85 px-4 py-1.5 text-xs font-medium text-primary-foreground">
-            {project.category}
-          </span>
-
-          <span className="pointer-events-none transform text-5xl font-black text-foreground/10 italic transition-colors group-hover:text-foreground/20">
-            {project.year}
-          </span>
-        </div>
-      </div>
-
-      {/* Glow Effect */}
-      <div className="absolute inset-0 z-0 bg-primary/0 transition-colors duration-500 group-hover:bg-primary/6" />
-      <div className="pointer-events-none absolute inset-0 z-20 rounded-2xl border-2 border-transparent transition-colors duration-300 group-hover:border-primary/25" />
-    </motion.div>
+    </Link>
   )
 }
 
-export default function Work() {
-  const [activeTab, setActiveTab] = useState('experience');
+export default function Work({ defaultTab = 'experience', showTabs = true }: { defaultTab?: 'experience' | 'personal', showTabs?: boolean }) {
+  const [activeTab, setActiveTab] = useState<'experience' | 'personal'>(defaultTab);
 
   return (
     <div className="mx-auto flex w-full max-w-350 flex-col items-center px-8">
-      {/* Tabs */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        className="mb-16 flex rounded-xl border border-border bg-card p-1"
-      >
-        <button
-          onClick={() => setActiveTab("experience")}
-          className={`rounded-lg px-8 py-3 text-sm font-medium transition-all ${
-            activeTab === "experience"
-              ? "bg-primary/20 text-foreground shadow-lg"
-              : "text-muted-foreground hover:bg-background/60 hover:text-foreground"
-          }`}
+      {showTabs && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          className="mb-16 flex rounded-xl border border-border bg-card p-1"
         >
-          Experience
-        </button>
-        <button
-          onClick={() => setActiveTab("personal")}
-          className={`rounded-lg px-8 py-3 text-sm font-medium transition-all ${
-            activeTab === "personal"
-              ? "bg-primary/20 text-foreground shadow-lg"
-              : "text-muted-foreground hover:bg-background/60 hover:text-foreground"
-          }`}
-        >
-          Personal Projects
-        </button>
-      </motion.div>
+          <button
+            onClick={() => setActiveTab("experience")}
+            className={`rounded-lg px-8 py-3 text-sm font-medium transition-all ${
+              activeTab === "experience"
+                ? "bg-primary/20 text-foreground shadow-lg"
+                : "text-muted-foreground hover:bg-background/60 hover:text-foreground"
+            }`}
+          >
+            Experience
+          </button>
+          <button
+            onClick={() => setActiveTab("personal")}
+            className={`rounded-lg px-8 py-3 text-sm font-medium transition-all ${
+              activeTab === "personal"
+                ? "bg-primary/20 text-foreground shadow-lg"
+                : "text-muted-foreground hover:bg-background/60 hover:text-foreground"
+            }`}
+          >
+            Personal Projects
+          </button>
+        </motion.div>
+      )}
 
       {/* Grid */}
       <motion.div

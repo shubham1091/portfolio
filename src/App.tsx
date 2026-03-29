@@ -1,21 +1,57 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import Layout from '@/components/Layout';
-import Hero from '@/components/Hero';
-import About from '@/components/About';
-import Education from '@/components/Education';
-import Work from '@/components/Work';
-import PhotoGallery from '@/components/PhotoGallery';
-import SocialGallery from '@/components/SocialGallery';
 import Cursor from '@/components/Cursor';
 import BackgroundOrbs from '@/components/BackgroundOrbs';
 import ProgressBar from '@/components/ProgressBar';
 import Loader from '@/components/Loader';
 
+// Pages
+import HomePage from '@/pages/HomePage';
+import WorkDetailPage from '@/pages/WorkDetailPage';
+import EducationDetailPage from '@/pages/EducationDetailPage';
+import CertificationDetailPage from '@/pages/CertificationDetailPage';
+
+function ScrollToTop() {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const id = hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+    }
+    window.scrollTo(0, 0);
+  }, [pathname, hash]);
+
+  return null;
+}
+
+function AnimatedRoutes() {
+  const location = useLocation();
+  
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/work/:id" element={<WorkDetailPage />} />
+        <Route path="/education/:id" element={<EducationDetailPage />} />
+        <Route path="/certification/:id" element={<CertificationDetailPage />} />
+      </Routes>
+    </AnimatePresence>
+  );
+}
+
 export function App() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
-    <>
+    <BrowserRouter>
+      <ScrollToTop />
       <Cursor />
       
       {!isLoaded && <Loader onLoadingComplete={() => setIsLoaded(true)} />}
@@ -25,34 +61,10 @@ export function App() {
         <BackgroundOrbs />
         
         <Layout>
-          <div className="flex flex-col gap-32 pb-10">
-            <section id="home" className="pt-10">
-              <Hero />
-            </section>
-            
-            <section id="about" className="min-h-[60vh] flex items-center justify-center pt-10">
-              <About />
-            </section>
-
-            <section id="education" className="pt-10">
-              <Education />
-            </section>
-
-            <section id="work" className="pt-20">
-              <Work />
-            </section>
-
-            <section id="gallery" className="pt-10">
-              <PhotoGallery />
-            </section>
-            
-            <section id="contact" className="min-h-[60vh] flex items-center justify-center pt-10 mb-20">
-              <SocialGallery />
-            </section>
-          </div>
+          <AnimatedRoutes />
         </Layout>
       </div>
-    </>
+    </BrowserRouter>
   )
 }
 

@@ -2,12 +2,13 @@ import { FileText, Menu, X } from 'lucide-react';
 import { Button } from './ui/button';
 import { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 
-function MagneticLink({ children, href, isActive, onClick }: { children: React.ReactNode, href: string, isActive: boolean, onClick: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void }) {
-  const ref = useRef<HTMLAnchorElement>(null);
+function MagneticLink({ children, href, isActive, onClick }: { children: React.ReactNode, href: string, isActive: boolean, onClick: (e: React.MouseEvent, href: string) => void }) {
+  const ref = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
-  const handleMouse = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
     const { clientX, clientY } = e;
     const { height, width, left, top } = ref.current!.getBoundingClientRect();
     const middleX = clientX - (left + width/2);
@@ -20,19 +21,22 @@ function MagneticLink({ children, href, isActive, onClick }: { children: React.R
   };
 
   return (
-    <motion.a
-      href={href}
+    <motion.div
       ref={ref}
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      onClick={(e) => onClick(e as any, href)}
       onMouseMove={handleMouse}
       onMouseLeave={reset}
       animate={{ x: position.x, y: position.y }}
       transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
-      className={`transition-colors cursor-pointer relative z-10 ${isActive ? 'text-primary' : 'text-foreground hover:text-primary'}`}
+      className="relative z-10"
     >
-      {children}
-    </motion.a>
+      <a
+        href={href}
+        onClick={(e) => onClick(e, href)}
+        className={`transition-colors cursor-pointer ${isActive ? 'text-primary' : 'text-foreground hover:text-primary'}`}
+      >
+        {children}
+      </a>
+    </motion.div>
   );
 }
 
@@ -48,8 +52,12 @@ const navItems = [
 export default function Navigation() {
   const [activeSection, setActiveSection] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
+    if (location.pathname !== '/') return;
+
     const handleScroll = () => {
       let currentSection = navItems[0].id;
       let minDistance = Infinity;
@@ -58,7 +66,6 @@ export default function Navigation() {
         const element = document.getElementById(item.id);
         if (element) {
           const rect = element.getBoundingClientRect();
-          // Check distance from middle of viewport
           const distance = Math.abs(rect.top - window.innerHeight / 3);
           
           if (distance < minDistance) {
@@ -72,16 +79,24 @@ export default function Navigation() {
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location.pathname]);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
+  const handleNavClick = (e: React.MouseEvent, href: string) => {
     const targetId = href.replace('#', '');
+    
+    if (location.pathname !== '/') {
+      e.preventDefault();
+      navigate(`/#${targetId}`);
+      // The scroll will be handled by a separate effect in App or HomePage if needed, 
+      // or just standard browser behavior if we use real anchors.
+      return;
+    }
+
+    e.preventDefault();
     const element = document.getElementById(targetId);
     if (element) {
-      // Small offset for the fixed header
       const offsetTop = element.getBoundingClientRect().top + window.scrollY - 100;
       window.scrollTo({
         top: offsetTop,
@@ -96,7 +111,10 @@ export default function Navigation() {
 
   return (
     <nav className="relative mx-auto flex w-full max-w-350 items-center justify-between px-4 py-4 sm:px-6 lg:px-8 lg:py-6">
-      <div className="relative z-20 flex items-center gap-3">
+      <Link 
+        to="/"
+        className="relative z-20 flex items-center gap-3"
+      >
         <div className="size-10 overflow-hidden rounded-full border-2 border-primary/20">
           <img
             src="/logo.jpg"
@@ -105,16 +123,16 @@ export default function Navigation() {
           />
         </div>
         <span className="text-sm font-semibold text-primary sm:text-base">
-          Home
+          {location.pathname === '/' ? 'Home' : 'Back'}
         </span>
-      </div>
+      </Link>
 
       <div className="hidden items-center gap-6 text-sm font-medium lg:flex">
         {navItems.map((item, index) => (
           <div key={item.name} className="flex items-center gap-6">
-            <MagneticLink
+            <MagneticLink 
               href={`#${item.id}`}
-              isActive={activeSection === item.id}
+              isActive={location.pathname === '/' && activeSection === item.id}
               onClick={handleNavClick}
             >
               {item.name}
@@ -166,7 +184,7 @@ export default function Navigation() {
                   href={`#${item.id}`}
                   onClick={(e) => handleNavClick(e, `#${item.id}`)}
                   className={`rounded-lg px-3 py-2.5 text-sm transition-colors ${
-                    activeSection === item.id
+                    location.pathname === '/' && activeSection === item.id
                       ? "bg-primary/10 text-primary"
                       : "text-foreground/85 hover:bg-muted/60 hover:text-primary"
                   }`}
