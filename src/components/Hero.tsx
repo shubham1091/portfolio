@@ -12,7 +12,7 @@ export default function Hero() {
     if (!imageContainerRef.current) return;
 
     const el = imageContainerRef.current;
-    
+
     const onMouseEnter = () => {
       gsap.to(el, {
         scale: 1.05,
@@ -79,11 +79,11 @@ export default function Hero() {
 
           <div className="space-y-2 px-2 text-[13px] leading-relaxed text-foreground/80 sm:px-0 sm:text-sm md:text-[15px]">
             <p>
-              Analytically minded and detail-oriented with an MSc (Distinction) 
+              Analytically minded and detail-oriented with an MSc (Distinction)
               from Keele University and recognized as Student of the Year.
             </p>
             <p>
-              Bridging the gap between complex data analysis and 
+              Bridging the gap between complex data analysis and
               practical business decisions.
             </p>
             <p className="mt-4 block text-muted-foreground italic">
